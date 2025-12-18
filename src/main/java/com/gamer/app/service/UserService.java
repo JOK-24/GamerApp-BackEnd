@@ -40,9 +40,7 @@ public class UserService {
                 user.getUsername()
         );
     }
-
-    @Transactional
-    public void changePassword(Long userId, ChangePasswordRequest request) {
+    public UserResponseDTO changePassword(Long userId, ChangePasswordRequest request) {
 
         log.info("Intentando cambiar contraseña para el usuario con id: {}", userId);
 
@@ -57,6 +55,11 @@ public class UserService {
         userRepository.save(user);
 
         log.info("Contraseña actualizada exitosamente para el usuario: {}", user.getEmail());
+        return new UserResponseDTO(
+                user.getId(),
+                user.getEmail(),
+                user.getUsername()
+        );
     }
 }
 

@@ -29,15 +29,18 @@ public class UserController {
     }
 
     @PutMapping("/{id}/password")
-    public ApiResponse<Void> changePassword(
+    public ApiResponse<UserResponseDTO> changePassword(
             @PathVariable Long id,
             @RequestBody ChangePasswordRequest request
     ) {
         userService.changePassword(id, request);
 
-        return ApiResponse.<Void>builder()
+        UserResponseDTO user = userService.changePassword(id, request);
+
+        return ApiResponse.<UserResponseDTO>builder()
                 .success(true)
                 .message("Contraseña actualizada correctamente")
+                .data(user)
                 .build();
     }
 }
